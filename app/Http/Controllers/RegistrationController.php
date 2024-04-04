@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\registration;
+use App\Models\user;
 
 class RegistrationController extends Controller
 {
     public function index()
     {
-        return view('rr');
+        return view('layout.login');
     }
 
     public function create()
@@ -44,7 +44,7 @@ class RegistrationController extends Controller
         ];
 
         try {
-            $registration = new registration();
+            $registration = new user();
             $registration->fullName=$validatedData['fullName'];
             $registration->email =$validatedData['email'];
             $registration->phoneNo=$validatedData['phoneNumber'];
@@ -61,6 +61,6 @@ class RegistrationController extends Controller
         }
     }
     public function update(){
-        return registration::all();
+        return user::all();
     }
 }

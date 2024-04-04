@@ -1,0 +1,71 @@
+
+
+.booking-form-box {
+    max-width: 350px;
+    border: 1px solid #ced4da;
+    margin: 10% auto 0;
+}
+.booking-form{
+    padding: 0 20px 20px;
+}
+.booking-form label{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #fff;
+}
+input::placeholder{
+    color: #fff!important;
+}
+.input-grip{
+    width: 151px;
+    display: inline-block;
+}
+.form-control{
+    font-size: 12px!important;;
+    border-radius: 0!important;;
+    color: #fff!important;;
+    background: transparent!important;;
+    box-shadow: none!important;;
+}
+.input-grip button{
+    margin-top: 10px;
+     width: 130px;
+     background-color: rgb(255, 0, 4);
+     border: none;
+}
+ .input-grip select{
+    /* border-radius: 3px; */
+    width: 130px;
+    margin-left: 5px;
+    background: transparent;
+    color: #fff;
+}
+
+.select-date::-webkit-inner-spin-button,
+.select-date::-webkit-outer-spin-button
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+.select-date::-webkit-calender-picker-indicator{
+    background: transparent!important;
+}
+
+.custom-select{
+    color: #fff;
+    /* font-size: 12px; */
+    border: 1px solid #ced4da;
+    box-shadow: none;
+    border-radius: 0;
+    background: transparent!important;
+}
+.custom-select option
+{
+    color: #333;
+} /**/
+.select-date,.custom-select{
+   width: 130px;
+   height: 30px;
+   border-radius: none;
+}

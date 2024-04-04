@@ -16,25 +16,37 @@
       background-size: cover;
       background-position: center;
   }
+  button{
+    cursor: pointer;
+  }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form  method="post" action="{{route('login.check')}}">
+            @csrf
+            @method('post');
             <h1>Login</h1>
             <div class="input-box">
-                <input type="text" placeholder="E-mail" required>    
+                <!-- <input type="text" id="email" name="email" placeholder="E-mail" required>  -->
+                <input type="text" id="email" name="email" placeholder="E-mail"  required>   
                 <i class="fa-solid fa-user"></i>
+                <span class="text-danger">
+                    @error('email')
+                    {{$message}}
+                    @enderror
+                  </span>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>    
-                <i class="fa-solid fa-lock"></i>
-            </div>
+    <input type="password" id="password" name="password" placeholder="Password" required>    
+    <i class="fa-solid fa-lock"></i>
+</div>
+
             <div class="remember-forget">
-                <label for=""><input type="checkbox">Remember Me</label>
+            <label for="remember"><input type="checkbox" id="remember" name="remember">Remember Me</label>
                 <a href="{{ route('Forget.index') }}">Forget password</a>
             </div>
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn" >Login</button>
             <div class="register-link">
                 <p>Don't have an account?<a href="{{ route('Registration.create') }}">Register</a></p>
             </div>
