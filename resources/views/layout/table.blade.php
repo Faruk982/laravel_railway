@@ -92,9 +92,10 @@ Code written by:
                     <td>{{ $train['class'] }}</td>
                     <td>{{ $train['seat available'] }}</td>
                     <td>{{ $train['price'] }}</td>
-                    <td>
+                
+                    
                              <!-- <p class="status cancelled">Book</p> -->
-                             <form action="{{ route('booking.index') }}" method="post">
+                             <form action="{{ route('booking.process') }}" method="post">
             @csrf
             <input type="hidden" name="train_name" value="{{ $train['train_name'] }}">
             <input type="hidden" name="departure_station" value="{{ $train['departure_station'] }}">
@@ -103,6 +104,8 @@ Code written by:
             <input type="hidden" name="class" value="{{ $train['class'] }}">
             <input type="hidden" name="seat_available" value="{{ $train['seat available'] }}">
             <input type="hidden" name="price" value="{{ $train['price'] }}">
+            <input type="hidden" name="route" value="{{ $train['route'] }}">
+            <input type="hidden" name="route" value="{{ $train['date'] }}">
             <button type="submit" class="book-button">Book</button>
         </form>
                          </td>

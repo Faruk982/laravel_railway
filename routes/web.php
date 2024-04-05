@@ -24,7 +24,7 @@ Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile
 // routes/web.php
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::post('/search', [SearchController::class, 'searchTrains'])->name('search.process');
-Route::post('/booking', [BookingController::class, 'index'])->name('booking.index');
-
-
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+Route::post('/booking', [BookingController::class, 'process'])->name('booking.process');
+Route::post('/booking1', [BookingController::class, 'sec_process'])->name('booking.second');
 

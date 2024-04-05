@@ -20,7 +20,7 @@ class SearchController extends Controller
     {
         $from = $request->input('from');
         $to = $request->input('to');
-
+        $date=$request->input('date');
         // Fetch routes from the database based on the 'from' and 'to' stations
         $routes = Route::where('departure_station', $from)
             ->where('arrival_station', $to)
@@ -59,6 +59,8 @@ if($seatavailable>0){
         'class' => $request->input('travel_class'),
         'seat available' =>$seatavailable,
         'price' =>$price, // Assuming there's a 'class' column in the trains table
+        'route' =>$route->route_generator,
+        'date'=>$date,
     ];
 }
                 

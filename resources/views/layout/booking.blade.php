@@ -14,15 +14,23 @@
     justify-content: center;
     align-items: center;
   }
+  .selecting-book{
+   margin-top: 30px;
+   margin-bottom: 30px;
+  }
     </style>
 </head>
 <body>
    <div class="all_here">
+    <form id="myForm" method="post">
+        @csrf
     <div class="plane">
         <div class="cockpit">
-          <h1>Please select a seat</h1>
+        <h1>Please select a seat</h1>
           <label for="" class="sh">selected</label>
           <label for="" class="ss">Available</label>
+         
+         
         </div>
         <div class="exit exit--front fuselage">
           
@@ -31,7 +39,7 @@
           <li class="row row--1">
             <ol class="seats" type="A">
               <li class="seat">
-                <input type="checkbox" id="1A" />
+                <input type="checkbox"  id="1A" />
                 <label for="1A">1A</label>
               </li>
               <li class="seat">
@@ -309,14 +317,84 @@
             </ol>
           </li>
         </ol>
+        
         <div class="exit exit--back fuselage">
           
         </div>
+        <div class="selecting-book">
+        <div class="form-data">
+       
+        <ul id="form-data-list"></ul>
+    </div>
+    <!--  -->
+        <label for="cars">Choose a car:</label>
+        <select name="cars" id="cars">
+            <option value="B">B</option>
+            <option value="B">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        </div>
+
         <div class="clearfix">
+        <h2>Train Name: {{ $train_name }}</h2>
+<h2>Departure Time: {{ $departure_time }}</h2>
+<h2>Date: {{ $date }}</h2>
+<h2>Class: {{ $class }}</h2>
+
+@if(count($seats) > 0)
+    <h2>Matching Seats:</h2>
+    <ul>
+        @foreach($seats as $seat)
+            <li>Bogi: {{ $seat['bogi'] }}, Seat: {{ $seat['seat'] }}</li>
+        @endforeach
+    </ul>
+@else
+    <p>No matching seats found.</p>
+@endif
             <button type="button" class="cancelbtn">Cancel</button>
             <button type="submit" class="registerbtn">Register</button>
           </div>
       </div>
+</form>
    </div>
-</body>
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var selectInput = document.getElementById('cars');
+
+            selectInput.addEventListener('change', function() {
+                var selectedValue = this.value;
+                var form = document.getElementById('myForm');
+                 form.method="post";
+                // Modify the action attribute of the form
+                form.action = "{{ route('booking.second') }}";
+
+                // Create a hidden input field to hold the selected option value
+                var hiddenInputOption = document.createElement('input');
+                hiddenInputOption.type = 'hidden';
+                hiddenInputOption.name = 'selected_option';
+                hiddenInputOption.value = selectedValue;
+
+                // Create a hidden input field to hold the train name value
+                var hiddenInputTrainName = document.createElement('input');
+                hiddenInputTrainName.type = 'hidden';
+                hiddenInputTrainName.name = 'train_name';
+                hiddenInputTrainName.value = 'Simanto'; // Assuming $train_name is a PHP variable passed to the view
+
+                // Append the hidden input fields to the form
+                form.appendChild(hiddenInputOption);
+                form.appendChild(hiddenInputTrainName);
+
+                // Submit the form
+                form.submit();
+            });
+        });
+    </script>
+    <!-- @foreach($seats as $seat)
+    <h1>{{ $seat->seat }}</h1>
+    <script>
+        document.getElementById('{{ $seat->seat }}').disabled = true;
+    </script>
+@endforeach -->
+   </body>
 </html>
