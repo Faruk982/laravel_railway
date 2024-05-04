@@ -49,7 +49,7 @@ Code written by:
  <body>
      <main class="table" id="customers_table">
          <section class="table__header">
-             <h1>Train list</h1>
+             <h1>Purchase list</h1>
              <!-- <div class="input-group">
                  <input type="search" placeholder="Search Data...">
                  <img src="images/search.png" alt="">
@@ -72,43 +72,27 @@ Code written by:
                      <tr>
                          <th> Id </th>
                          <th> Train Name </th>
+                         <th> Departure Date </th>
                          <th> Departure Station </th>
                          <th>Arrival Station</th>
-                         <th> Departure Time </th>
-                         <th> class </th>
-                         <th> Seats Available </th>
-                         <th> Price </th>
-                         <th> booking </th>
+                         <th> Details </th>
                      </tr>
                  </thead>
                  <tbody>
-                @foreach ($matchingTrains as $key => $train)
+                @foreach ($ticket as $key => $tickets)
                 <tr style="cursor:pointer;">
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $train['train_name'] }}</td>
-                    <td>{{ $train['departure_station'] }}</td>
-                    <td>{{ $train['arrival_station'] }}</td>
-                    <td>{{ $train['departure_time'] }}</td>
-                    <td>{{ $train['class'] }}</td>
-                    <td>{{ $train['seat available'] }}</td>
-                    <td>{{ $train['price'] }}</td>
-                
-                    
+                    <td>{{ $tickets['train_name'] }}</td>
+                    <td>{{ $tickets['departure_date'] }}</td>
+                    <td>{{ $tickets['departure_station'] }}</td>
+                    <td>{{ $tickets['arrival_station'] }}</td>
                              <!-- <p class="status cancelled">Book</p> -->
-                             <form action="{{ route('booking.process') }}" method="post">
+                             <form action="{{ route('booking.third') }}" method="post">
             @csrf
-            <input type="hidden" name="train_name" value="{{ $train['train_name'] }}">
-            <input type="hidden" name="departure_station" value="{{ $train['departure_station'] }}">
-            <input type="hidden" name="arrival_station" value="{{ $train['arrival_station'] }}">
-            <input type="hidden" name="departure_time" value="{{ $train['departure_time'] }}">
-            <input type="hidden" name="class" value="{{ $train['class'] }}">
-            <input type="hidden" name="seat_available" value="{{ $train['seat available'] }}">
-            <input type="hidden" name="price" value="{{ $train['price'] }}">
-            <input type="hidden" name="date" value="{{ $train['date'] }}">
-            <input type="hidden" name="route" value="{{ $train['route'] }}">
-           
-            
-            <td><button type="submit" class="book-button">Book</button></td>
+            <input type="hidden" name="email" value="{{ $tickets['email'] }}">
+            <input type="hidden" name="train_name" value="{{ $tickets['train_name']}}">
+            <input type="hidden" name="departure_date" value="{{ $tickets['departure_date'] }}">
+            <td><button type="submit" class="book-button">Show Details</button></td>
         </form>
                          </td>
                 </tr>

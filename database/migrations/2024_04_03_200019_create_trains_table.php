@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('trains', function (Blueprint $table) {
             $table->id();
             $table->string('train_name')->nullable(false);
+            $table->string('departure_time')->nullable(false);
             $table->string('route')->nullable(false);
             $table->timestamps();
         });

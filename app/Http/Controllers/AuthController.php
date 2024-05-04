@@ -38,4 +38,7 @@ class AuthController extends Controller
         // Authentication failed
         return redirect()->back()->withErrors(['error' => 'Invalid credentials'])->withInput($request->except('password'));
     }
+    public function index(){
+        return view('layout.home');
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Ticket;
 use App\Models\Route;
 use App\Models\Train;
 use App\Models\Seat;
@@ -12,15 +14,31 @@ class SearchController extends Controller
 {
     public function index()
     {
-        // Logic to render the search page
-        return view('layout.search'); // Assuming you have a view named search/index.blade.php
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+        // $tickets = Ticket::where('email', $user->email)
+        //           ->get();
+        // if($tickets){
+        //     return view('layout.search',['message' => 'You can not Purchase more than once for a particular date']);
+        // }
+        // Extract unique departure dates from the purchased tickets
+        $purchasedDates = Ticket::where('email', $user->email)
+        ->pluck('departure_date') // Assuming 'departure_date' is the date column
+        ->toArray();
+    // Pass the departure dates to the view
+   // dd($purchasedDates); 
+    return view('layout.search', ['purchasedDates' => $purchasedDates]);
     }
 
     public function searchTrains(Request $request)
     {
+        // dd($request->all());
         $from = $request->input('from');
         $to = $request->input('to');
-        $date=$request->input('date');
+        $date=$request->input('departing');
+       
         // Fetch routes from the database based on the 'from' and 'to' stations
         $routes = Route::where('departure_station', $from)
             ->where('arrival_station', $to)

@@ -9,6 +9,6 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'phone_no', 'nid', 'train_name', 'class', 'departure_station', 'arrival_station', 'departure_time', 'departure_date'
+        'name','email','nid','price','train_name', 'class', 'departure_station', 'arrival_station', 'departure_time', 'departure_date','booking_timestamp','bogi','seat'
     ];
 }

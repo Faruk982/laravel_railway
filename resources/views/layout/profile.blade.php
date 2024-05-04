@@ -112,7 +112,10 @@
                             <td>{{ $user->gender }}</td>
                         </tr>
                     </tbody>
+                   
                 </table>
+                <button type="button" id="HomeButton">Return Home</button>
+                <button type="button" id="HistoryButton">Purchase History</button>
             </div>
         </div>
 
@@ -154,5 +157,29 @@
         </div> -->
     </div>
     <!-- End -->
+      <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the button element
+        var contactButton = document.getElementById('HistoryButton');
+
+        // Add click event listener to the button
+        contactButton.addEventListener('click', function() {
+            // Redirect to the history page
+            window.location.href = "{{ route('history.index') }}";
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the button element
+        var contactButton = document.getElementById('HomeButton');
+
+        // Add click event listener to the button
+        contactButton.addEventListener('click', function() {
+            // Redirect to the history page
+            window.location.href = "{{ route('Home.index') }}";
+        });
+    });
+</script>
 </body>
 </html>

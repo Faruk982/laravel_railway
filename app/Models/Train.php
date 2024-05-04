@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Train extends Model
 {
     use HasFactory;
-    protected $fillable = ['train_name', 'route'];
+    protected $fillable = ['train_name', 'route','departure_time'];
 }

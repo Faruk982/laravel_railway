@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="booking-form-box">
-        <form action="{{route('search.process')}}" method="post">
+        <form id="searchForm"  action="{{route('search.process')}}" method="post">
             @csrf <!-- Laravel CSRF token -->
             <div class="booking-form">
                 <label for="from">From:</label>
@@ -40,10 +40,50 @@
                     <button type="button" class="btn btn-primary">Cancel</button>     
                 </div>
                 <div class="input-grip">
-                    <button type="submit" class="btn btn-primary">Show trains</button>     
+                    <button type="submit"  id="submitBtn" class="btn btn-primary">Show trains</button>     
                 </div>
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    var today = new Date();
+    var maxDate = new Date();
+    maxDate.setDate(today.getDate() + 10); // Set maximum date to 10 days from today
+
+    var inputDeparting = document.getElementById('departing');
+    inputDeparting.setAttribute('min', formatDate(today)); // Set minimum date
+    inputDeparting.setAttribute('max', formatDate(maxDate)); // Set maximum date
+});
+
+function formatDate(date) {
+    var yyyy = date.getFullYear();
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); // January is 0
+    var dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
+
+    </script>
+
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    var purchasedDates = @json($purchasedDates);
+    var submitBtn = document.getElementById('submitBtn');
+    var form = document.getElementById('searchForm');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var departingDate = document.getElementById('departing').value;
+        if (purchasedDates.includes(departingDate)) {
+            alert('You cannot book for this date as you have already purchased a ticket for it.');
+        } else {
+            // Proceed with form submission
+            form.submit();
+        }
+    });
+});
+
+    </script>
 </body>
 </html>

@@ -26,6 +26,7 @@
             <li><a href="{{ route('home.index') }}">HOME</a></li>
             <li><a href="{{ route('search.index') }}">BOOKING</a></li>
             <li><a href="{{ route('profile.index') }}">PROFILE</a></li>
+            <!-- <li><a href="{{ route('history.index') }}">Purchase History</a></li> -->
             <li><a href="{{ route('login.index') }}">LOGOUT</a></li>
         </ul>
        </div>   
@@ -36,11 +37,25 @@
         <div>
             <button type="button"><span></span>Contact Us</button>
         </div>
+        
     </div>
     <div class="copyright">
         <p ><a href="#">Terms and conditions </a>| <a href="#">Privacy </a></p>
         <p><br><i class="fa-solid fa-train"></i> Bangladesh Railway</p>
        
     </div>
+    <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the button element
+        var contactButton = document.getElementById('HistoryButton');
+
+        // Add click event listener to the button
+        contactButton.addEventListener('click', function() {
+            // Redirect to the history page
+            window.location.href = "{{ route('history.index') }}";
+        });
+    });
+</script> -->
+
 </body>
 </html>

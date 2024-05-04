@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone_no');
+            $table->string('email');
+            $table->integer('price');
+            $table->string('bogi');
+            $table->string('seat');
             $table->string('nid');
             $table->string('train_name');
             $table->string('class');
