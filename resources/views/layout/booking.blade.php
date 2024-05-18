@@ -17,10 +17,15 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+        h2{
+            color: white;
+        }
     </style>
 </head>
 <body>
+
 <div class="all_here">
+
     <form id="myForm" method="post" action="{{ route('booking.second') }}" onsubmit="return handleFormSubmit()">
         @csrf
         <div class="plane">

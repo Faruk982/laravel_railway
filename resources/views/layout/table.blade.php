@@ -47,7 +47,19 @@ Code written by:
  </head>
  
  <body>
+ 
      <main class="table" id="customers_table">
+     <div class="navbar">
+        <img src="{{ asset('images/logo1.png') }}" alt="logo" class="logo">
+        <h2>Bangladesh Railway</h2>
+        <ul>
+            <li><a href="{{ route('home.index') }}">HOME</a></li>
+            <li><a href="{{ route('search.index') }}">BOOKING</a></li>
+            <li><a href="{{ route('profile.index') }}">PROFILE</a></li>
+            <!-- <li><a href="{{ route('history.index') }}">Purchase History</a></li> -->
+            <li><a href="{{ route('login.index') }}">LOGOUT</a></li>
+        </ul>
+       </div>
          <section class="table__header">
              <h1>Train list</h1>
              <!-- <div class="input-group">

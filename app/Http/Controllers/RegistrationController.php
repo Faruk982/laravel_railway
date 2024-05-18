@@ -22,7 +22,7 @@ class RegistrationController extends Controller
         
         $validatedData = $request->validate([
             'fullName' => 'required',
-            'email' => 'required|email|unique:registrations,email',
+            'email' => 'required|email|unique:users,email',
             'phoneNumber' => 'required',
             'nid' => 'required',
             'dob' => 'required|date',

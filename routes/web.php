@@ -8,6 +8,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ForgotPasswordManager;
+
 Route::get('/', function () {
     return view('layout.login');
 });
@@ -31,3 +34,15 @@ Route::post('/booking', [BookingController::class, 'process'])->name('booking.pr
 Route::post('/booking1', [BookingController::class, 'sec_process'])->name('booking.second');
 Route::post('/booking2', [BookingController::class, 'third_process'])->name('booking.third');
 Route::get('/history',[HistoryController::class, 'index'])->name('history.index');
+
+Route::get('/admin',[AdminController::class, 'index'])->name('admin.index');
+Route::get('/add-train', [AdminController::class, 'showAddTrainForm'])->name('admin.train-form');
+Route::post('/adminLogin', [AdminController::class, 'checker'])->name('loginAdmin.check');
+Route::post('/add-train', [AdminController::class, 'AfterTrainAdd'])->name('addTrain.post');
+Route::post('/UpdateAdmin', [AdminController::class, 'update'])->name('admin.update');
+Route::get('/UpdateAdmin', [AdminController::class, 'indexx'])->name('admin.update1');
+//forget password
+Route::get('/forgot_password', [ForgotPasswordManager::class, 'forgot_password'])->name('forgot_password.view');
+Route::post('/forgot_password', [ForgotPasswordManager::class, 'forgot_passwordPost'])->name('forgot_passwordPost');
+Route::get('/resetPassword/{token}', [ForgotPasswordManager::class, 'resetPassword'])->name('resetPassword');
+Route::post('/resetPassword', [ForgotPasswordManager::class, 'resetPasswordPost'])->name('resetPasswordPost');

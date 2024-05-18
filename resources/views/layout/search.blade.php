@@ -13,10 +13,30 @@
             background-size: cover;
             background-position: center;
         }
+        h3{
+            color: white;
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 30;
+            margin-left: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="booking-form-box">
+<div class="navbar">
+        <img src="{{ asset('images/logo1.png') }}" alt="logo" class="logo">
+        <h3>BANGLADESH RAILWAY</h3>
+        <ul>
+            <li><a href="{{ route('home.index') }}">HOME</a></li>
+            <li><a href="{{ route('search.index') }}">BOOKING</a></li>
+            <li><a href="{{ route('profile.index') }}">PROFILE</a></li>
+            <!-- <li><a href="{{ route('history.index') }}">Purchase History</a></li> -->
+            <li><a href="{{ route('login.index') }}">LOGOUT</a></li>
+        </ul>
+       </div>
+      
+    <div class="booking-form-box">  
+   
         <form id="searchForm"  action="{{route('search.process')}}" method="post">
             @csrf <!-- Laravel CSRF token -->
             <div class="booking-form">

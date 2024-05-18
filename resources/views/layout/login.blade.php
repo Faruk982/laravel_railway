@@ -44,7 +44,7 @@
 
             <div class="remember-forget">
             <label for="remember"><input type="checkbox" id="remember" name="remember">Remember Me</label>
-                <a href="{{ route('Forget.index') }}">Forget password</a>
+                <a href="{{ route('forgot_password.view') }}">Forget password</a>
             </div>
             <button type="submit" class="btn" >Login</button>
             <div class="register-link">

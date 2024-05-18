@@ -91,6 +91,7 @@ public function sec_process(Request $request)
                     ->first();
 
                 if (!$seat) {
+                   // dd($request->all());
                     // If seat is not found, create a new record
                     $newSeat = new Seat();
                     $newSeat->date = $date;

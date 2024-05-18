@@ -15,6 +15,10 @@
     background-size: cover;
     background-position: center;
 }
+       h1{
+            color: white;
+           
+        }
     </style>
 
 </head>
@@ -22,11 +26,12 @@
     <div class="container">
        <div class="navbar">
         <img src="{{ asset('images/logo1.png') }}" alt="logo" class="logo">
+        <!-- <h1>BANGLADESH RAILWAY</h1> -->
         <ul>
             <li><a href="{{ route('home.index') }}">HOME</a></li>
             <li><a href="{{ route('search.index') }}">BOOKING</a></li>
             <li><a href="{{ route('profile.index') }}">PROFILE</a></li>
-            <!-- <li><a href="{{ route('history.index') }}">Purchase History</a></li> -->
+            <li><a href="{{ route('admin.index') }}">Admin</a></li>
             <li><a href="{{ route('login.index') }}">LOGOUT</a></li>
         </ul>
        </div>   
