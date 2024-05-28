@@ -42,7 +42,8 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[64 Robots](https://64robots.com)**
 - **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
 - **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[DevSquad[Reset+password.txt](https://github.com/Faruk982/laravel_railway/files/15463520/Reset%2Bpassword.txt)
+](https://devsquad.com/hire-laravel-developers)**
 - **[Jump24](https://jump24.co.uk)**
 - **[Redberry](https://redberry.international/laravel/)**
 - **[Active Logic](https://activelogic.com)**
@@ -64,3 +65,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
