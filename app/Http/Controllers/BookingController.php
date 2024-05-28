@@ -21,15 +21,14 @@ class BookingController extends Controller
     $matchingTrains = [];
 
     // Iterate over each bogi from A to I
-    for ($bogi = 'A'; $bogi <= 'I'; $bogi++) {
-        $seats = DB::table('seats')
-            ->where('train_name', $request->input('train_name'))
-            ->where('Departure_time', $request->input('departure_time'))
-            ->where('date', $request->input('date'))
-            ->where('class', $request->input('class'))
-            ->where('bogi', $bogi)  // Filter by current bogi (A to I)
-            ->where('route', 'not like', '%' . $request->input('route') . '%')
-            ->get();
+    for ($bogi = 'A'; $bogi <= 'E'; $bogi++) {
+        $seats = Seat::where('train_name', $request->input('train_name'))
+        ->where('Departure_time', $request->input('departure_time'))
+        ->where('date', $request->input('date'))
+        ->where('class', $request->input('class'))
+        ->where('bogi', $bogi)
+        ->where('route', 'not like', '%' . $request->input('route') . '%')
+        ->get();
 
         foreach ($seats as $route) {
             $matchingTrains[] = [
@@ -123,7 +122,8 @@ public function sec_process(Request $request)
             $departureDateTime->modify('+' . $numOfCapitals . ' hours');
             $updatedDepartureTime = $departureDateTime->format('H:i:s');
 
-            $user = Auth::user();
+            $user_id = session('user_id');
+            $user = User::find($user_id);
 
             if (!$user) {
                 return response()->json(['message' => 'User not authenticated'], 401);

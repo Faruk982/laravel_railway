@@ -64,10 +64,6 @@
                     <option value="C">C</option>
                     <option value="D">D</option>
                     <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                    <option value="I">I</option>
                 </select>
             </div>
             <div class="clearfix">
@@ -76,12 +72,17 @@
                 <input type="hidden" name="class" value="{{ $class }}">
                 <input type="hidden" name="route" value="{{ $route }}">
                 <input type="hidden" name="departure_time" value="{{$departure_time}}">
-                <button type="button" class="cancelbtn">Cancel</button>
+                <button type="button" id="cancelbtn" class="cancelbtn">Cancel</button>
                 <button type="submit" class="registerbtn" >BOOK</button>
             </div>
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('cancelbtn').addEventListener('click', function() {
+        window.location.href = "{{ route('search.index') }}";
+    });
+</script>
 <script>
     function handleSeatSelection(checkbox) {
         var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');

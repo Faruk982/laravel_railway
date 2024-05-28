@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Admin;
+use App\Models\Route;
 use App\Models\Train;
 class AdminController extends Controller
 {
@@ -31,7 +33,7 @@ class AdminController extends Controller
         // If the password does not exist, redirect back with a message
         return redirect()->back()->with('error', 'Authentication failed.');
     }
-
+    Session::put('admin', $request->input('password'));
     // If the password exists, proceed with your logic here
     // For example:
     return view('layout.admin');
@@ -51,8 +53,8 @@ public function AfterTrainAdd(Request $request){
     $route = $request->input('route');
 
     // Check if train with the same route exists
-    $existingTrain =  Train::where('route', $route)
-    ->where('train_name', $trainName)
+    $existingTrain =  Train::
+    where('train_name', $trainName)
     ->where('departure_time', $formattedDeparture)
     ->first();;
 
@@ -60,7 +62,7 @@ public function AfterTrainAdd(Request $request){
     if ($existingTrain) {
        // dd($request);
        //echo '<script>alert("Train with the same route already exists.");</script>';
-       return back()->withErrors(['route' => 'Train with the same route already exists.']);
+       return back()->withErrors(['route' => 'Train with the same time already exists.']);
     }
 
     // Create a new train instance
@@ -70,9 +72,41 @@ public function AfterTrainAdd(Request $request){
     $train->departure_time = $formattedDeparture;
     $train->route = $route;
     $train->save();
- //   echo '<script>alert("Ttttt.");</script>';
+    $routeSegments = $this->generateRouteSegments($route);
+
+    // Save the route segments in the Route table
+    foreach ($routeSegments as $segment) {
+        $routeEntry = new Route();
+        $routeEntry->departure_station = $segment['departure'];
+        $routeEntry->arrival_station = $segment['arrival'];
+        $routeEntry->route_generator = $segment['route_generator'];
+        $routeEntry->save();
+    }
+//  //   echo '<script>alert("Ttttt.");</script>';
     // Redirect with success message or any further action
     return view('layout.admin');
+}
+private function generateRouteSegments($route)
+{
+    // Extract capitalized words
+    preg_match_all('/[A-Z][a-z]*/', $route, $matches);
+    $places = $matches[0];
+
+    $segments = [];
+
+    // Generate all possible route segments
+    for ($i = 0; $i < count($places); $i++) {
+        for ($j = $i + 1; $j < count($places); $j++) {
+            $routeGenerator = implode('', array_slice($places, $i, $j - $i + 1));
+            $segments[] = [
+                'departure' => $places[$i],
+                'arrival' => $places[$j],
+                'route_generator' => $routeGenerator,
+            ];
+        }
+    }
+
+    return $segments;
 }
 public function update(Request $request){
     $admin = Admin::first();
@@ -82,11 +116,13 @@ public function update(Request $request){
         
         // Save the updated admin record
         $admin->save();
-        
+        Session::forget('admin');
+
         // Redirect or return a response as needed
-        return view('layout.loginAdmin');
+        return redirect()->route('admin.index');
     }
-    return view('layout.loginAdmin');
+    
+    return redirect()->route('admin.index');
 
 }
 public function indexx(){

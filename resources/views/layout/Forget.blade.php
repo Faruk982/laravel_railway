@@ -23,10 +23,27 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form action="{{route('forgot_passwordPost')}}" method="post">
             <h1>Forget Password</h1>
+            @if (session('status'))
+            <div>
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <!-- Display validation errors if any -->
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             <div class="input-box">
-                <input type="text" placeholder="E-mail" required>    
+            <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
                 <!-- <i class="fa-solid fa-user"></i> -->
             </div>
             <div class="input-box">

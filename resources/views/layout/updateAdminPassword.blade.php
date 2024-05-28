@@ -25,7 +25,7 @@
     <div class="wrapper">
         <form  method="post" action="{{route('admin.update1')}}">
             @csrf
-            @method('post');
+           
             <h1>Update Admin</h1>
             
             <div class="input-box">

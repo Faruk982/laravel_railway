@@ -27,7 +27,7 @@ class RegistrationController extends Controller
             'nid' => 'required',
             'dob' => 'required|date',
             'hTown' => 'required',
-            'passWord' => 'required|min:6',
+            'passWord' => 'required|min:8',
             'cpassWord' => 'required|same:passWord',
             'gender' => 'required',
         ]);

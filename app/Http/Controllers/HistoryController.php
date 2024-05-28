@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -10,8 +11,8 @@ class HistoryController extends Controller
     public function index()
     {
         // Get the currently authenticated user
-        $user = Auth::user();
-
+        $user_id = session('user_id');
+            $user = User::find($user_id);
         if ($user) {
             // Retrieve tickets related to the current user's email
             $tickets = Ticket::where('email', $user->email)->get();

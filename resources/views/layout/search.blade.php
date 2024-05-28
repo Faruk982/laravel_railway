@@ -30,6 +30,7 @@
             <li><a href="{{ route('home.index') }}">HOME</a></li>
             <li><a href="{{ route('search.index') }}">BOOKING</a></li>
             <li><a href="{{ route('profile.index') }}">PROFILE</a></li>
+            <li><a href="{{ route('admin.index') }}">Admin</a></li>
             <!-- <li><a href="{{ route('history.index') }}">Purchase History</a></li> -->
             <li><a href="{{ route('login.index') }}">LOGOUT</a></li>
         </ul>
@@ -57,7 +58,7 @@
                     </select>
                 </div>
                 <div class="input-grip">
-                    <button type="button" class="btn btn-primary">Cancel</button>     
+                    <button type="reset" class="btn btn-primary">Cancel</button>     
                 </div>
                 <div class="input-grip">
                     <button type="submit"  id="submitBtn" class="btn btn-primary">Show trains</button>     

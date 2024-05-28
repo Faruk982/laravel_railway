@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ticket;
+use App\Models\User;
 use App\Models\Route;
 use App\Models\Train;
 use App\Models\Seat;
@@ -14,7 +15,8 @@ class SearchController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user_id = session('user_id');
+        $user = User::find($user_id);
         if (!$user) {
             return response()->json(['message' => 'User not authenticated'], 401);
         }
@@ -25,11 +27,11 @@ class SearchController extends Controller
         // }
         // Extract unique departure dates from the purchased tickets
         $purchasedDates = Ticket::where('email', $user->email)
-        ->pluck('departure_date') // Assuming 'departure_date' is the date column
-        ->toArray();
-    // Pass the departure dates to the view
-   // dd($purchasedDates); 
-    return view('layout.search', ['purchasedDates' => $purchasedDates]);
+            ->pluck('departure_date') // Assuming 'departure_date' is the date column
+            ->toArray();
+        // Pass the departure dates to the view
+        // dd($purchasedDates); 
+        return view('layout.search', ['purchasedDates' => $purchasedDates]);
     }
 
     public function searchTrains(Request $request)
@@ -37,23 +39,21 @@ class SearchController extends Controller
         // dd($request->all());
         $from = $request->input('from');
         $to = $request->input('to');
-        $date=$request->input('departing');
-       
+        $date = $request->input('departing');
+
         // Fetch routes from the database based on the 'from' and 'to' stations
         $routes = Route::where('departure_station', $from)
             ->where('arrival_station', $to)
             ->get();
-           
+
         // Array to store matching trains
         $matchingTrains = [];
 
         // Iterate over each route
         foreach ($routes as $route) {
             // Fetch all matching trains for the current route
-            $trains = DB::table('trains')
-                ->where('route', 'like', '%' . $route->route_generator . '%')
-                ->get();
-           
+            $trains = Train::where('route', 'like', '%' . $route->route_generator . '%')->get();
+
             $numCapitalLetters = preg_match_all('/[A-Z]/', $route->route_generator);
 
             // Multiply the number of capital letters by 100
@@ -61,27 +61,28 @@ class SearchController extends Controller
             $price = $numCapitalLetters * $pricePerCapitalLetter;
             // Add matching trains to the array
             foreach ($trains as $train) {
-                $seatavailable = DB::table('seats')
-    ->where('train_name', $train->train_name)
-    ->where('departure_time', $train->departure_time)
-    ->where('date', $request->input('date'))
-    ->where('route', 'not like', '%' . $route->route_generator . '%')
-    ->count();
-$seatavailable=300-$seatavailable;
-if($seatavailable>0){
-    $matchingTrains[] = [
-        'train_name' =>  $train->train_name,
-        'departure_time' => $train->departure_time,
-        'departure_station' =>  $from,
-        'arrival_station' => $to,
-        'class' => $request->input('travel_class'),
-        'seat available' =>$seatavailable,
-        'price' =>$price, // Assuming there's a 'class' column in the trains table
-        'route' =>$route->route_generator,
-        'date'=>$date,
-    ];
-}
-                
+                $seatavailable = Seat::where('train_name', $train->train_name)
+                    ->where('departure_time', $train->departure_time)
+                    ->where('date', $request->input('departing'))
+                    ->where('class',$request->input('travel_class'))
+                    ->where('route', 'not like', '%' . $route->route_generator . '%')
+                    ->count();
+              //   dd( $request->input('date'));
+                $seatavailable = 300 - $seatavailable;
+                if ($seatavailable > 0) {
+                    $matchingTrains[] = [
+                        'train_name' => $train->train_name,
+                        'departure_time' => $train->departure_time,
+                        'departure_station' => $from,
+                        'arrival_station' => $to,
+                        'class' => $request->input('travel_class'),
+                        'seat available' => $seatavailable,
+                        'price' => $price, // Assuming there's a 'class' column in the trains table
+                        'route' => $route->route_generator,
+                        'date' => $date,
+                    ];
+                }
+
             }
         }
 

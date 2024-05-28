@@ -31,7 +31,7 @@ class ForgotPasswordManager extends Controller
         Mail::send('auth.email', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email)->subject('Reset Password');
         });
-       return view('layout.login');
+        return redirect()->route('Home.login');
 
     }
     public function resetPassword($token)

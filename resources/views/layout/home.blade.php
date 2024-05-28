@@ -40,15 +40,26 @@
         <h1>Bangladesh Railway</h1>
         <p>Welcome to the Bangladesh Railway, your gateway to convenient and<br>reliable train travel across the country.</p>
         <div>
-            <button type="button"><span></span>Contact Us</button>
+            <button type="button" id="contact"><span></span>Contact Us</button>
         </div>
         
     </div>
     <div class="copyright">
-        <p ><a href="#">Terms and conditions </a>| <a href="#">Privacy </a></p>
         <p><br><i class="fa-solid fa-train"></i> Bangladesh Railway</p>
        
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the button element
+        var contactButton = document.getElementById('contact');
+
+        // Add click event listener to the button
+        contactButton.addEventListener('click', function() {
+            // Redirect to the history page
+            window.location.href = "{{ route('contact.index') }}";
+        });
+    });
+</script>
     <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Get the button element

@@ -19,31 +19,40 @@
   button{
     cursor: pointer;
   }
+   .text-danger{
+    color: red;
+   }
     </style>
 </head>
 <body>
     <div class="wrapper">
+   
         <form  method="post" action="{{route('login.check')}}">
             @csrf
-            @method('post');
+            
             <h1>Login</h1>
             <div class="input-box">
                 <!-- <input type="text" id="email" name="email" placeholder="E-mail" required>  -->
+                @if (isset($_COOKIE['remember_email']))
+                <input type="text" id="email" name="email" placeholder="E-mail" value="{{ $_COOKIE['remember_email'] }}" required>
+                @else
                 <input type="text" id="email" name="email" placeholder="E-mail"  required>   
+                @endif
                 <i class="fa-solid fa-user"></i>
-                <span class="text-danger">
-                    @error('email')
-                    {{$message}}
-                    @enderror
-                  </span>
+               
             </div>
             <div class="input-box">
-    <input type="password" id="password" name="password" placeholder="Password" required>    
+            @if (isset($_COOKIE['remember_password']))
+            <input type="password" id="password" name="password" placeholder="Password" value="{{ $_COOKIE['remember_password'] }}" required> 
+            @else
+    <input type="password" id="password" name="password" placeholder="Password" required> 
+    @endif   
     <i class="fa-solid fa-lock"></i>
+
 </div>
 
             <div class="remember-forget">
-            <label for="remember"><input type="checkbox" id="remember" name="remember">Remember Me</label>
+            <label for="remember"><input type="checkbox" id="remember" name="remember">Remember me a month</label>
                 <a href="{{ route('forgot_password.view') }}">Forget password</a>
             </div>
             <button type="submit" class="btn" >Login</button>
@@ -51,6 +60,9 @@
                 <p>Don't have an account?<a href="{{ route('Registration.create') }}">Register</a></p>
             </div>
         </form>
+        @if (Session::has('error'))
+    <div class="text-danger">{{ Session::get('error') }}</div>
+    @endif
     </div>
 </body>
 </html>

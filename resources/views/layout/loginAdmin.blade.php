@@ -25,7 +25,7 @@
     <div class="wrapper">
         <form  method="post" action="{{route('loginAdmin.check')}}">
             @csrf
-            @method('post');
+            
             <h1>Login Admin</h1>
             
             <div class="input-box">
